@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: mongo_db
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb:/data/db
+    healthcheck:
+      test: mongo localhost:27017 --quiet
+      timeout: 20s
+      retries: 10
+  backend:
+    container_name: backend_api
+    build: .
+    # command: "uvicorn main:app --host 0.0.0.0 --port 8080 --reload"
+    volumes:
+      - .:/app
+      - /app/venv/
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy  
