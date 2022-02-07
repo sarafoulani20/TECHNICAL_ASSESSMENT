@@ -1,4 +1,4 @@
-# TECHNICAL ASSESSMENT 2
+# TECHNICAL ASSESSMENT
 
 ## Technology Stack
 
